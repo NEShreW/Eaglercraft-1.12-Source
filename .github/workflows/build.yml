@@ -1,0 +1,24 @@
+name: Compile Eaglercraft
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get the code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Run the TeaVM Compiler
+      run: chmod +x ./gradlew && ./gradlew build
+
+    - name: Upload the Finished HTML Game
+      uses: actions/upload-artifact@v3
+      with:
+        name: My-Modded-Eaglercraft
+        path: build/ # (This grabs the finished files)
