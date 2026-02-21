@@ -17,8 +17,14 @@ jobs:
     - name: Run the TeaVM Compiler
       run: chmod +x ./gradlew && ./gradlew build
 
-    - name: Upload the Finished HTML Game
+    - name: Isolate the Finished Game
+      run: |
+        mkdir Eaglercraft_Game
+        find . -type f -name "*.html" -exec cp {} Eaglercraft_Game/ \;
+        find . -type f -name "*.wasm" -exec cp {} Eaglercraft_Game/ \;
+
+    - name: Upload the Finished Game
       uses: actions/upload-artifact@v4
       with:
         name: My-Modded-Eaglercraft
-        path: build/
+        path: Eaglercraft_Game/
